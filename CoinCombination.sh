@@ -21,7 +21,7 @@ elif [ $guess -eq 3 ]
 then    arr[((index++))]="HT";
         ((HeadTail++));
 else
-sa      arr[((index++))]="TH";
+        arr[((index++))]="TH";
         ((TailHead++))
 fi
 ((val++))
@@ -47,4 +47,5 @@ PerStore[TH]=$TH_Percen;
 
 for i in ${!PerStore[@]}
 do
-echo ":"${PerStore[$i]}
+echo ${PerStore[$i]}
+done
