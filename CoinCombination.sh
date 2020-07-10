@@ -48,6 +48,7 @@ else
 fi
 ((val++))
 done
+<<<<<<< HEAD
 HHH_Percen=`echo "$HHH*100/$num" | bc -l`
 TTT_Percen=`echo "$TTT*100/$num" | bc -l`
 HHT_Percen=`echo "$HHT*100/$num" | bc -l`
@@ -56,3 +57,17 @@ HTH_Percen=`echo "$HTH*100/$num" | bc -l`
 THT_Percen=`echo "$THT*100/$num" | bc -l`
 HTT_Percen=`echo "$HTT*100/$num" | bc -l`
 THH_Percen=`echo "$THH*100/$num" | bc -l`
+=======
+for((i=0;i<${#array[@]};i++))
+do
+HeadTail[$i]=${array[$i]};
+done
+
+Head_Percen=`echo "$count_head*100/$num" | bc -l`
+Tail_Percen=`echo "$count_tail*100/$num" | bc -l`
+declare -A arr
+arr[0]=$Head_Percen;
+arr[1]=$Tail_Percen;
+
+echo ${arr[@]}
+>>>>>>> loopThroughSingle
