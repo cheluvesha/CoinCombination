@@ -18,14 +18,14 @@ else
 fi
 ((val++))
 done
-for((i=0;i<${#arr[@]};i++))
+for((i=0;i<${#array[@]};i++))
 do
-HeadTail[$i]=${arr[$i]};
+HeadTail[$i]=${array[$i]};
 done
 
 Head_Percen=`echo "$count_head*100/$num" | bc -l`
 Tail_Percen=`echo "$count_tail*100/$num" | bc -l`
-
+declare -A arr
 arr[0]=$Head_Percen;
 arr[1]=$Tail_Percen;
 
