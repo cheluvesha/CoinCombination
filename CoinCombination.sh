@@ -1,4 +1,99 @@
-#!/bin/bash
+#!/bin/bash -x
+function singlet() {
+read -p "Enter the range to flip: " num
+val=1;
+count_head=0;
+count_tail=0;
+Key=0;
+declare -A HeadTail
+while [ $val -le $num ]
+do
+guess=$(( RANDOM% 2))
+if [ $guess -eq 1 ]
+then
+        array[((Key++))]="H"
+        ((count_head++))
+else
+        array[((Key++))]="T"
+        ((count_tail++))
+fi
+((val++))
+done
+for((i=0;i<${#array[@]};i++))
+do
+HeadTail[$i]=${array[$i]};
+done
+
+Head_Percen=`echo "$count_head*100/$num" | bc -l`
+Tail_Percen=`echo "$count_tail*100/$num" | bc -l`
+declare -A arr
+arr[0]=$Head_Percen;
+arr[1]=$Tail_Percen;
+
+echo ${arr[@]}
+declare -A dic
+for ((i=0; i<${#arr[@]}; i++))
+do
+dic[$i]=${arr[$i]};
+done
+echo ${dic[@]}
+
+echo "The MAX winning Combination based on Percentage:" "${dic[@]}" | tr " " "\n" | sort -nk1 | tail -1
+}
+
+
+function doublet() {
+read -p "Enter the range to flip: " num
+val=1;
+TailTail=0;
+HeadHead=0;
+HeadTail=0;
+TailHead=0;
+index=0;
+while [ $val -le $num ]
+do
+guess=$(( 1+RANDOM% 4))
+if [ $guess -eq 1 ]
+then
+        arr[((index++))]="HH";
+        ((HeadHead++));
+elif [ $guess -eq 2 ]
+then
+        arr[((index++))]="TT";
+        ((TailTail++));
+elif [ $guess -eq 3 ]
+then    arr[((index++))]="HT";
+        ((HeadTail++));
+else
+        arr[((index++))]="TH";
+        ((TailHead++))
+fi
+((val++))
+done
+echo ${arr[@]}
+
+declare -A Doublet
+for ((i=0;i<${#arr[@]};i++))
+do
+Doublet[$i]=${arr[$i]};
+done
+
+HH_Percen=`echo "$HeadHead*100/$num" | bc -l`
+TT_Percen=`echo "$TailTail*100/$num" | bc -l`
+HL_Percen=`echo "$HeadTail*100/$num" | bc -l`
+TH_Percen=`echo "$TailHead*100/$num" | bc -l`
+
+declare -A PerStore
+PerStore[HH]=$HH_Percen;
+PerStore[TT]=$TT_Percen;
+PerStore[HL]=$HL_Percen;
+PerStore[TH]=$TH_Percen;
+
+echo ${PerStore[@]}
+echo "The MAX winning combinaton on the basis of Percentage is: "  "${PerStore[@]}" | tr " " "\n" | sort -nk1 | tail -1
+
+}
+function triplet() {
 read -p "Enter the range to flip: " num
 val=1;
 TTT=0;
@@ -48,7 +143,14 @@ else
 fi
 ((val++))
 done
-<<<<<<< HEAD
+echo ${arr[@]}
+
+declare -A Tripple
+for ((i=0;i<${#arr[@]};i++))
+do
+Tripple[$i]=${arr[$i]};
+done
+
 HHH_Percen=`echo "$HHH*100/$num" | bc -l`
 TTT_Percen=`echo "$TTT*100/$num" | bc -l`
 HHT_Percen=`echo "$HHT*100/$num" | bc -l`
@@ -57,17 +159,26 @@ HTH_Percen=`echo "$HTH*100/$num" | bc -l`
 THT_Percen=`echo "$THT*100/$num" | bc -l`
 HTT_Percen=`echo "$HTT*100/$num" | bc -l`
 THH_Percen=`echo "$THH*100/$num" | bc -l`
-=======
-for((i=0;i<${#array[@]};i++))
+
+declare -A PerStore
+PerStore[TTH]=$HHH_Percen;
+PerStore[TTT]=$TTT_Percen;
+PerStore[HHT]=$HHT_Percen;
+PerStore[TTH]=$TTH_Percen;
+PerStore[HTH]=$HTH_Percen;
+PerStore[THT]=$THT_Percen;
+PerStore[HTT]=$HTT_Percen;
+PerStore[THH]=$THH_Percen;
+for i in ${!PerStore[@]}
 do
-HeadTail[$i]=${array[$i]};
+echo ":"${PerStore[$i]}
 done
 
-Head_Percen=`echo "$count_head*100/$num" | bc -l`
-Tail_Percen=`echo "$count_tail*100/$num" | bc -l`
-declare -A arr
-arr[0]=$Head_Percen;
-arr[1]=$Tail_Percen;
+echo "The MAX Winning combination on the basis of Percentage: " "${PerStore[@]}" | tr " " "\n" | sort -nk1 | tail -1
 
-echo ${arr[@]}
->>>>>>> loopThroughSingle
+}
+singlet
+doublet
+triplet
+
+
