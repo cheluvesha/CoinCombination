@@ -1,4 +1,13 @@
 #!/bin/bash -x
+#UC1
+guess=$(( RANDOM% 2))
+if [ $guess -eq 1 ]
+then
+        echo "HEAD"
+else
+        echo "TAIL"
+fi
+#UC2
 read -p "Enter the range to flip: " num
 val=1;
 count_head=0;
