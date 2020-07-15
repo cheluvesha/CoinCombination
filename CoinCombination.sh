@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash 
 #UC1
 guess=$(( RANDOM% 2))
 if [ $guess -eq 1 ]
